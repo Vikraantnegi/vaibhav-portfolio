@@ -54,9 +54,11 @@ const ProjectsSection = () => {
   return (
     <section id="projects" className="py-6 w-full md:py-10">
       <div className="flex flex-col">
-        <p className="text-4xl font-bold">PERSONAL PROJECTS</p>
+        <p className="text-3xl md:text-4xl font-bold text-center md:text-left">
+          PERSONAL PROJECTS
+        </p>
         <div className="bg-black mt-2 mb-6 h-0.5 rounded-sm" />
-        <div className="flex flex-row flex-wrap items-center justify-center w-full gap-4">
+        <div className="flex flex-col md:flex-row md:flex-wrap items-center justify-center w-full gap-4">
           {projects.map((project, index) => (
             <ProjectCard
               key={index}

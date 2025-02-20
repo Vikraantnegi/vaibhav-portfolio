@@ -11,7 +11,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ title, description, image, alt }: ProjectCardProps) => {
   return (
     <div
-      className="relative w-[32%] h-[330px] bg-base rounded-lg z-0 group overflow-hidden"
+      className="relative w-full md:w-[32%] h-[330px] bg-base rounded-lg z-0 group overflow-hidden mb-4 md:mb-0"
       style={{
         backgroundImage:
           "url('https://c0.wallpaperflare.com/preview/902/404/8/blurred-background-close-up-colors-dark.jpg')",

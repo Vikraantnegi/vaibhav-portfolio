@@ -8,11 +8,12 @@ const ContactSection = () => {
   return (
     <section id="contact" className="py-6 w-full md:py-10">
       <div className="flex flex-col gap-2">
-        <p className="text-3xl">
-          It all starts with a <span className="font-bold text-4xl">HELLO</span>
+        <p className="text-2xl md:text-3xl text-center md:text-left">
+          It all starts with a{" "}
+          <span className="font-bold text-3xl md:text-4xl">HELLO</span>
         </p>
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-col w-[55%]">
+        <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-0">
+          <div className="flex flex-col w-full md:w-[55%]">
             <div>
               <p>
                 Are you looking for someone who is committed to{" "}
@@ -27,7 +28,7 @@ const ContactSection = () => {
                 or have any questions?
                 <br />
               </p>
-              <p className="mt-4">
+              <p className="mt-4 text-center md:text-left">
                 Feel free to connect with me or drop an email to discuss
                 potential opportunities, share your ideas, or simply say hello.
                 I&apos;m always open to new projects and eager to explore the
@@ -35,7 +36,7 @@ const ContactSection = () => {
                 together!
               </p>
             </div>
-            <div className="my-4 flex items-center gap-2">
+            <div className="my-4 flex items-center gap-2 justify-center md:justify-start">
               <div className="relative border border-black rounded-full w-fit p-1.5 cursor-pointer hover:scale-110 transition duration-300 ease-in-out">
                 <Link
                   href="https://www.linkedin.com/in/vaibhavnegi04"
@@ -54,13 +55,14 @@ const ContactSection = () => {
               </div>
             </div>
           </div>
-          <div className="w-[40%] flex items-center justify-center">
-            <div className="w-[75%] mt-[-15%]">
+          <div className="w-full md:w-[40%] flex items-center justify-center">
+            <div className="w-full md:w-[75%] mt-0 md:mt-[-15%]">
               <Image
                 alt="collaboration"
                 src={collaborationImage}
                 width={678}
                 height={624}
+                className="w-full h-auto"
               />
             </div>
           </div>
