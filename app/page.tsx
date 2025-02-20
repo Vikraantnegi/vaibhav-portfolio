@@ -1,7 +1,7 @@
 import AboutSection from "./components/AboutSection";
 import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
-
+import ProjectsSection from "./components/ProjectsSection";
 export default function Home() {
   return (
     <main className="flex min-h-screen bg-background font-gilroy">
@@ -9,6 +9,7 @@ export default function Home() {
         <Navbar />
         <HeroSection />
         <AboutSection />
+        <ProjectsSection />
       </div>
     </main>
   );

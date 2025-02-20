@@ -2,7 +2,7 @@
 
 import { scrollToSection } from "@/utils/common";
 import React from "react";
-import Button from "./ui/Button";
+import Button from "./Button";
 
 const Navbar = () => {
   return (

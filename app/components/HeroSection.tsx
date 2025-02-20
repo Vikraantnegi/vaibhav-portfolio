@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { LocationIcon, LinkedInIcon, EmailIcon } from "@/assets/icons";
 import { scrollToSection } from "@/utils/common";
-import Button from "./ui/Button";
+import Button from "./Button";
 
 import CoverImage from "@/assets/images/cover-3d.png";
 
