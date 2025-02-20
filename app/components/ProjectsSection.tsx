@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import ProjectCard from "./ProjectCard";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
+import type { SwiperRef } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -56,6 +57,16 @@ const projects = [
 ];
 
 const ProjectsSection = () => {
+  const swiperRef = useRef<SwiperRef>(null);
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      setTimeout(() => {
+        swiperRef.current?.swiper.autoplay.start();
+      }, 500);
+    }
+  }, []);
+
   return (
     <section id="projects" className="py-6 w-full md:py-10">
       <div className="flex flex-col">
@@ -67,7 +78,8 @@ const ProjectsSection = () => {
         {/* Mobile Slider */}
         <div className="md:hidden">
           <Swiper
-            modules={[Pagination]}
+            ref={swiperRef}
+            modules={[Pagination, Autoplay]}
             spaceBetween={20}
             slidesPerView={1}
             pagination={{
@@ -77,6 +89,8 @@ const ProjectsSection = () => {
               bulletActiveClass: "swiper-pagination-bullet-active !bg-black",
             }}
             className="w-full pb-10"
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
+            speed={2000}
           >
             {projects.map((project, index) => (
               <SwiperSlide key={index}>

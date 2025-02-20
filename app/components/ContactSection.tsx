@@ -8,35 +8,35 @@ const ContactSection = () => {
   return (
     <section id="contact" className="py-6 w-full md:py-10">
       <div className="flex flex-col gap-2">
-        <p className="text-2xl md:text-3xl text-center md:text-left">
+        <h2 className="text-2xl md:text-3xl text-center md:text-left">
           It all starts with a{" "}
           <span className="font-bold text-3xl md:text-4xl">HELLO</span>
-        </p>
+        </h2>
         <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-0">
           <div className="flex flex-col w-full md:w-[55%]">
-            <div className="text-justify md:text-left">
-              <p>
+            <div className="text-justify">
+              <span className="block mb-3">
                 Are you looking for someone who is committed to{" "}
                 <span className="font-bold">adding value to your product</span>{" "}
                 and is capable of bringing your ideas to life through the{" "}
                 <span className="font-bold">magic of 3D animation</span>?
-                <div className="mb-3" />
+              </span>
+              <span className="block mb-3">
                 Interested in{" "}
                 <span className="font-bold">
                   collaborating on a 3D animation project
                 </span>{" "}
                 or have any questions?
-                <br />
-              </p>
-              <p className="mt-4 text-justify md:text-left">
+              </span>
+              <span className="block mt-4">
                 Feel free to connect with me or drop an email to discuss
                 potential opportunities, share your ideas, or simply say hello.
                 I&apos;m always open to new projects and eager to explore the
                 world of 3D with you. Let&apos;s create something amazing
                 together!
-              </p>
+              </span>
             </div>
-            <div className="my-4 flex items-center gap-2 justify-center md:justify-start">
+            <div className="my-4 flex items-center gap-2">
               <SocialIcon href="https://www.linkedin.com/in/vaibhavnegi04">
                 <LinkedInIcon />
               </SocialIcon>
