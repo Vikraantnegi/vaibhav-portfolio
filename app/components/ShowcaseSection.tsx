@@ -1,6 +1,6 @@
 "use client";
 
-import { getEmbedUrl } from "@/utils/common";
+import { getYoutubeEmbedUrl } from "@/utils/common";
 import React, { useState } from "react";
 
 const ShowcaseSection = () => {
@@ -21,8 +21,8 @@ const ShowcaseSection = () => {
             </div>
           ) : null}
           <iframe
-            src={getEmbedUrl(
-              "https://drive.google.com/file/d/17PN-dmzdjOg6vuKszijfScDtv1XJ9Bde/view"
+            src={getYoutubeEmbedUrl(
+              "https://www.youtube.com/watch?v=LEzm6EzQHmQ"
             )}
             width="100%"
             height="100%"

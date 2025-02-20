@@ -6,6 +6,8 @@ interface ButtonProps {
   title: string;
   className?: string;
   variant?: "outlined" | "text";
+  href?: string;
+  download?: string;
 }
 
 const Button = ({
@@ -13,7 +15,29 @@ const Button = ({
   className = "",
   title = "",
   variant = "outlined",
+  href = "",
+  download = "",
 }: ButtonProps) => {
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        download={download || undefined}
+      >
+        <button
+          className={clsx(
+            "flex items-center justify-center cursor-pointer transition-colors duration-300 bg-transparent hover:bg-black border border-black text-black hover:text-white h-10 px-3 md:px-4 rounded-sm text-xs md:text-sm w-full md:w-auto",
+            className
+          )}
+        >
+          {title}
+        </button>
+      </a>
+    );
+  }
+
   return (
     <button
       onClick={onClick}

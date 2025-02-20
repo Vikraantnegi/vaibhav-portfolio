@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { LocationIcon, LinkedInIcon, EmailIcon } from "@/assets/icons";
+import { LinkedInIcon, EmailIcon } from "@/assets/icons";
 import { scrollToSection } from "@/utils/common";
 import Button from "./Button";
 import SocialIcon from "./SocialIcon";
@@ -17,10 +17,10 @@ const HeroSection = () => {
             Hey, I&apos;m{" "}
             <span className="font-bold text-4xl md:text-6xl">Vaibhav Negi</span>
           </p>
-          <div className="text-base md:text-lg mb-4 flex gap-1 items-center">
+          {/* <div className="text-base md:text-lg mb-4 flex gap-1 items-center">
             <LocationIcon />
             Oshawa, Canada
-          </div>
+          </div> */}
           <p className="text-xl md:text-2xl">
             A Passionate 3D Animator, experienced in Characters Creation,
             Environment Building, Modelling and Rigging!
@@ -34,7 +34,12 @@ const HeroSection = () => {
             </SocialIcon>
           </div>
           <div className="pt-6 flex items-start md:items-center gap-4">
-            <Button title="Download Resume" className="w-full md:w-auto" />
+            <Button
+              href="https://drive.google.com/uc?export=download&id=1PAnxpDzwV8iEPZc5xmK-beHVqEbMze0l"
+              title="Download Resume"
+              className="w-full md:w-auto"
+              download="Vaibhav_Negi_Resume.pdf"
+            />
             <Button
               title="Contact Me"
               onClick={() => scrollToSection("contact")}
