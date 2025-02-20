@@ -14,13 +14,13 @@ const ContactSection = () => {
         </p>
         <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-0">
           <div className="flex flex-col w-full md:w-[55%]">
-            <div>
+            <div className="text-justify md:text-left">
               <p>
                 Are you looking for someone who is committed to{" "}
                 <span className="font-bold">adding value to your product</span>{" "}
                 and is capable of bringing your ideas to life through the{" "}
                 <span className="font-bold">magic of 3D animation</span>?
-                <br />
+                <div className="mb-3" />
                 Interested in{" "}
                 <span className="font-bold">
                   collaborating on a 3D animation project
@@ -28,7 +28,7 @@ const ContactSection = () => {
                 or have any questions?
                 <br />
               </p>
-              <p className="mt-4 text-center md:text-left">
+              <p className="mt-4 text-justify md:text-left">
                 Feel free to connect with me or drop an email to discuss
                 potential opportunities, share your ideas, or simply say hello.
                 I&apos;m always open to new projects and eager to explore the

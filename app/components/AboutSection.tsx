@@ -6,7 +6,7 @@ import AvatarImage from "@/assets/images/avatar.svg";
 const AboutSection = () => {
   return (
     <section id="about" className="py-6 w-full md:py-10">
-      <div className="flex flex-row justify-between items-center h-full">
+      <div className="flex flex-col-reverse md:flex-row justify-between items-center h-full gap-6 md:gap-0">
         <Image
           alt="cover"
           src={AvatarImage}
@@ -14,11 +14,11 @@ const AboutSection = () => {
           height={300}
           priority
         />
-        <div className="flex py-4 font-medium text-base w-full max-w-[65%] flex-col h-full justify-between">
+        <div className="flex py-4 font-medium text-base w-full md:max-w-[65%] flex-col h-full justify-between">
           <div className="mb-4">
             <p className="text-center font-bold text-4xl mb-4">About Me</p>
             <ul className="text-justify">
-              <li>
+              <li className="mb-3">
                 Currently pursuing{" "}
                 <span className="font-bold">
                   Animation - Digital and Production
@@ -30,7 +30,7 @@ const AboutSection = () => {
                 ! I am very dedicated and determined towards the whole{" "}
                 <span className="font-bold">3D Animation</span> world.
               </li>
-              <li>
+              <li className="mb-3">
                 I&apos;m currently focussed on deep diving into the industry,
                 hence <span className="font-bold">seeking opportunities</span>{" "}
                 where I can collaborate with industry professionals, absorb
@@ -38,6 +38,7 @@ const AboutSection = () => {
                 <span className="font-bold">
                   contribute to meaningful projects.
                 </span>
+                <br />
               </li>
               <li>
                 I have a strong foundation in{" "}
