@@ -7,6 +7,7 @@ import { scrollToSection } from "@/utils/common";
 import Button from "./Button";
 
 import CoverImage from "@/assets/images/cover-3d.png";
+import SocialIcon from "./SocialIcon";
 
 const HeroSection = () => {
   return (
@@ -26,24 +27,12 @@ const HeroSection = () => {
             Environment Building, Modelling and Rigging!
           </p>
           <div className="my-4 flex items-center gap-2 justify-center md:justify-start">
-            <div className="relative border border-black rounded-full w-fit p-1.5 cursor-pointer hover:scale-110 transition duration-300 ease-in-out">
-              <a
-                className="absolute inset-0"
-                href="https://www.linkedin.com/in/vaibhavnegi04"
-                target="_blank"
-                rel="noopener noreferrer"
-              />
+            <SocialIcon href="https://www.linkedin.com/in/vaibhavnegi04">
               <LinkedInIcon />
-            </div>
-            <div className="relative border border-black rounded-full w-fit p-1.5 cursor-pointer hover:scale-110 transition duration-300 ease-in-out">
-              <a
-                className="absolute inset-0"
-                href="mailto:vaibhavnegi111@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              />
+            </SocialIcon>
+            <SocialIcon href="mailto:vaibhavnegi111@gmail.com">
               <EmailIcon />
-            </div>
+            </SocialIcon>
           </div>
           <div className="pt-6 flex items-center gap-4 justify-center md:justify-start">
             <Button title="Download Resume" />

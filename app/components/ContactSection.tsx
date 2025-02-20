@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import collaborationImage from "@/assets/images/collaboration.svg";
 import { LinkedInIcon, EmailIcon } from "@/assets/icons";
+import SocialIcon from "./SocialIcon";
 
 const ContactSection = () => {
   return (
@@ -37,22 +37,12 @@ const ContactSection = () => {
               </p>
             </div>
             <div className="my-4 flex items-center gap-2 justify-center md:justify-start">
-              <div className="relative border border-black rounded-full w-fit p-1.5 cursor-pointer hover:scale-110 transition duration-300 ease-in-out">
-                <Link
-                  href="https://www.linkedin.com/in/vaibhavnegi04"
-                  target="_blank"
-                  className="absolute inset-0"
-                />
+              <SocialIcon href="https://www.linkedin.com/in/vaibhavnegi04">
                 <LinkedInIcon />
-              </div>
-              <div className="relative border border-black rounded-full w-fit p-1.5 cursor-pointer hover:scale-110 transition duration-300 ease-in-out">
-                <Link
-                  href="mailto:vaibhavnegi111@gmail.com"
-                  target="_blank"
-                  className="absolute inset-0"
-                />
+              </SocialIcon>
+              <SocialIcon href="mailto:vaibhavnegi111@gmail.com">
                 <EmailIcon />
-              </div>
+              </SocialIcon>
             </div>
           </div>
           <div className="w-full md:w-[40%] flex items-center justify-center">
