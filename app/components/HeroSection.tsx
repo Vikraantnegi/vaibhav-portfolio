@@ -35,10 +35,10 @@ const HeroSection = () => {
           </div>
           <div className="pt-6 flex items-start md:items-center gap-4">
             <Button
-              href="https://drive.google.com/uc?export=download&id=1PAnxpDzwV8iEPZc5xmK-beHVqEbMze0l"
               title="Download Resume"
               className="w-full md:w-auto"
-              download="Vaibhav_Negi_Resume.pdf"
+              href="https://drive.google.com/uc?export=download&id=19XSrm3UMq990NthfiIMzFF75Kx3q7GHw"
+              download="VaibhavNegi_Resume.pdf"
             />
             <Button
               title="Contact Me"
