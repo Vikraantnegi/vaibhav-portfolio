@@ -47,3 +47,21 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.swiper-pagination {
+  position: relative !important;
+  margin-top: 20px !important;
+}
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  background-color: rgb(209 213 219) !important;
+  opacity: 1 !important;
+  margin: 0 4px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: rgb(0 0 0) !important;
+}

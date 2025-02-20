@@ -1,7 +1,12 @@
-import React from "react";
+"use client";
 
-// Import ProjectCard component
+import React from "react";
 import ProjectCard from "./ProjectCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 // Import all project images
 import GamingSetup from "@/assets/images/GamingSetup.jpg";
@@ -58,7 +63,36 @@ const ProjectsSection = () => {
           PERSONAL PROJECTS
         </p>
         <div className="bg-black mt-2 mb-6 h-0.5 rounded-sm" />
-        <div className="flex flex-col md:flex-row md:flex-wrap items-center justify-center w-full gap-4">
+
+        {/* Mobile Slider */}
+        <div className="md:hidden">
+          <Swiper
+            modules={[Pagination]}
+            spaceBetween={20}
+            slidesPerView={1}
+            pagination={{
+              clickable: true,
+              bulletClass:
+                "swiper-pagination-bullet !w-8 !h-1 !rounded-none !bg-gray-300",
+              bulletActiveClass: "swiper-pagination-bullet-active !bg-black",
+            }}
+            className="w-full pb-10"
+          >
+            {projects.map((project, index) => (
+              <SwiperSlide key={index}>
+                <ProjectCard
+                  title={project.title}
+                  description={project.description}
+                  image={project.image}
+                  alt={project.alt}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:flex md:flex-row md:flex-wrap items-center justify-center w-full gap-4">
           {projects.map((project, index) => (
             <ProjectCard
               key={index}
