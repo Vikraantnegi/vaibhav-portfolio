@@ -5,20 +5,19 @@ import Image from "next/image";
 import { LocationIcon, LinkedInIcon, EmailIcon } from "@/assets/icons";
 import { scrollToSection } from "@/utils/common";
 import Button from "./Button";
-
-import CoverImage from "@/assets/images/cover-3d.png";
 import SocialIcon from "./SocialIcon";
+import CoverImage from "@/assets/images/cover-3d.png";
 
 const HeroSection = () => {
   return (
-    <section className="py-6 w-full md:py-10">
+    <section className="py-6 pt-10 w-full md:py-10">
       <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-0">
-        <div className="w-full md:max-w-[55%] font-semiBold leading-16 text-center md:text-left">
+        <div className="w-full md:max-w-[55%] font-semiBold leading-16 text-left">
           <p className="text-3xl md:text-4xl">
             Hey, I&apos;m{" "}
             <span className="font-bold text-4xl md:text-6xl">Vaibhav Negi</span>
           </p>
-          <div className="text-base md:text-lg mb-4 flex gap-1 items-center justify-center md:justify-start">
+          <div className="text-base md:text-lg mb-4 flex gap-1 items-center">
             <LocationIcon />
             Oshawa, Canada
           </div>
@@ -26,7 +25,7 @@ const HeroSection = () => {
             A Passionate 3D Animator, experienced in Characters Creation,
             Environment Building, Modelling and Rigging!
           </p>
-          <div className="my-4 flex items-center gap-2 justify-center md:justify-start">
+          <div className="my-4 flex items-center gap-2">
             <SocialIcon href="https://www.linkedin.com/in/vaibhavnegi04">
               <LinkedInIcon />
             </SocialIcon>
@@ -34,11 +33,12 @@ const HeroSection = () => {
               <EmailIcon />
             </SocialIcon>
           </div>
-          <div className="pt-6 flex items-center gap-4 justify-center md:justify-start">
-            <Button title="Download Resume" />
+          <div className="pt-6 flex items-start md:items-center gap-4">
+            <Button title="Download Resume" className="w-full md:w-auto" />
             <Button
               title="Contact Me"
               onClick={() => scrollToSection("contact")}
+              className="w-full md:w-auto"
             />
           </div>
         </div>
