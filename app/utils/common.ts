@@ -7,3 +7,11 @@ export const scrollToSection = (id: string) => {
     });
   }
 };
+
+export const getEmbedUrl = (url: string) => {
+  const fileId = url.match(/[-\w]{25,}/);
+  if (fileId) {
+    return `https://drive.google.com/file/d/${fileId[0]}/preview`;
+  }
+  return url;
+};

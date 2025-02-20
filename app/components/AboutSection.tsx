@@ -7,13 +7,7 @@ const AboutSection = () => {
   return (
     <section id="about" className="py-6 w-full md:py-10">
       <div className="flex flex-col-reverse md:flex-row justify-between items-center h-full gap-6 md:gap-0">
-        <Image
-          alt="cover"
-          src={AvatarImage}
-          width={300}
-          height={300}
-          priority
-        />
+        <Image alt="cover" src={AvatarImage} width={300} height={300} />
         <div className="flex py-4 font-medium text-base w-full md:max-w-[65%] flex-col h-full justify-between">
           <div className="mb-4">
             <p className="text-center font-bold text-4xl mb-4">About Me</p>

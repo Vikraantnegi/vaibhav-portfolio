@@ -6,12 +6,7 @@ import Button from "./Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { LinkedInIcon, EmailIcon } from "@/assets/icons";
 import SocialIcon from "./SocialIcon";
-
-const navigationItems = [
-  { title: "About", section: "about" },
-  { title: "Projects", section: "projects" },
-  { title: "Contact", section: "contact" },
-];
+import { navigationItems } from "@/utils/constants";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
