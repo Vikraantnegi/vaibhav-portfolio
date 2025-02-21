@@ -25,15 +25,12 @@ const Button = ({
         target="_blank"
         rel="noopener noreferrer"
         download={download || undefined}
+        className={clsx(
+          "flex items-center justify-center cursor-pointer transition-colors duration-300 bg-transparent hover:bg-black border border-black text-black hover:text-white h-10 px-3 md:px-4 rounded-sm text-xs md:text-sm w-full md:w-auto",
+          className
+        )}
       >
-        <button
-          className={clsx(
-            "flex items-center justify-center cursor-pointer transition-colors duration-300 bg-transparent hover:bg-black border border-black text-black hover:text-white h-10 px-3 md:px-4 rounded-sm text-xs md:text-sm w-full md:w-auto",
-            className
-          )}
-        >
-          {title}
-        </button>
+        {title}
       </a>
     );
   }
