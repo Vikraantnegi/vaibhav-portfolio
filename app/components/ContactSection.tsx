@@ -3,6 +3,7 @@ import Image from "next/image";
 import collaborationImage from "@/assets/images/collaboration.svg";
 import { LinkedInIcon, EmailIcon } from "@/assets/icons";
 import SocialIcon from "./SocialIcon";
+import Button from "./Button";
 
 const ContactSection = () => {
   return (
@@ -43,6 +44,12 @@ const ContactSection = () => {
               <SocialIcon href="mailto:vaibhavnegi111@gmail.com">
                 <EmailIcon />
               </SocialIcon>
+              <Button
+                title="Download Resume"
+                className="w-full md:w-auto"
+                href="https://drive.google.com/uc?export=download&id=19XSrm3UMq990NthfiIMzFF75Kx3q7GHw"
+                download="VaibhavNegi_Resume.pdf"
+              />
             </div>
           </div>
           <div className="w-full md:w-[40%] flex items-center justify-center">

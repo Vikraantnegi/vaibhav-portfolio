@@ -3,12 +3,13 @@
 import React from "react";
 import Image from "next/image";
 import { LinkedInIcon, EmailIcon } from "@/assets/icons";
-import { scrollToSection } from "@/utils/common";
 import Button from "./Button";
 import SocialIcon from "./SocialIcon";
 import CoverImage from "@/assets/images/cover-3d.png";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
+  const router = useRouter();
   return (
     <section className="py-6 pt-10 w-full md:py-10">
       <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-0">
@@ -42,7 +43,7 @@ const HeroSection = () => {
             />
             <Button
               title="Contact Me"
-              onClick={() => scrollToSection("contact")}
+              onClick={() => router.push("/contact")}
               className="w-full md:w-auto"
             />
           </div>

@@ -1,57 +1,74 @@
 "use client";
 
-import { scrollToSection } from "@/utils/common";
 import React, { useState } from "react";
 import Button from "./Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { LinkedInIcon, EmailIcon } from "@/assets/icons";
 import SocialIcon from "./SocialIcon";
 import { navigationItems } from "@/utils/constants";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const handleClick = (section: string) => {
-    scrollToSection(section);
+    router.push(`/${section}`);
     setIsOpen(false);
   };
 
   return (
     <div className="flex w-full flex-row items-center justify-between py-4 relative">
-      <h2 className="font-extrabold text-xl">VAIBHAV NEGI</h2>
+      <div onClick={() => handleClick("")} className="cursor-pointer">
+        <h2 className="font-extrabold text-xl">VAIBHAV NEGI</h2>
+      </div>
 
       {/* Desktop Navigation */}
       <div className="hidden flex-row items-center justify-between gap-3 md:flex">
+        <SocialIcon href="https://www.linkedin.com/in/vaibhavnegi04">
+          <LinkedInIcon />
+        </SocialIcon>
+        <SocialIcon href="mailto:vaibhavnegi111@gmail.com">
+          <EmailIcon />
+        </SocialIcon>
         {navigationItems.map((item) => (
           <Button
             key={item.section}
             title={item.title}
-            onClick={() => scrollToSection(item.section)}
+            onClick={() => handleClick(item.section)}
           />
         ))}
       </div>
 
       {/* Mobile Hamburger */}
-      <div
-        className="md:hidden border border-black rounded-full w-fit p-2 cursor-pointer hover:scale-110 transition duration-300 ease-in-out z-50"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <div className="w-3 h-3 flex flex-col justify-between">
-          <span
-            className={`w-full h-0.5 bg-black transform transition-all duration-300 ${
-              isOpen ? "rotate-45 translate-y-[5px]" : ""
-            }`}
-          />
-          <span
-            className={`w-full h-0.5 bg-black transition-all duration-300 ${
-              isOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`w-full h-0.5 bg-black transform transition-all duration-300 ${
-              isOpen ? "-rotate-45 -translate-y-[5px]" : ""
-            }`}
-          />
+      <div className="md:hidden flex items-center justify-center gap-2">
+        <SocialIcon href="https://www.linkedin.com/in/vaibhavnegi04">
+          <LinkedInIcon height={18} width={18} />
+        </SocialIcon>
+        <SocialIcon href="mailto:vaibhavnegi111@gmail.com">
+          <EmailIcon height={18} width={18} />
+        </SocialIcon>
+        <div
+          className="md:hidden border border-black rounded-full w-fit p-2 cursor-pointer hover:scale-110 transition duration-300 ease-in-out z-50"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <div className="w-3 h-3 flex flex-col justify-between">
+            <span
+              className={`w-full h-0.5 bg-black transform transition-all duration-300 ${
+                isOpen ? "rotate-45 translate-y-[5px]" : ""
+              }`}
+            />
+            <span
+              className={`w-full h-0.5 bg-black transition-all duration-300 ${
+                isOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`w-full h-0.5 bg-black transform transition-all duration-300 ${
+                isOpen ? "-rotate-45 -translate-y-[5px]" : ""
+              }`}
+            />
+          </div>
         </div>
       </div>
 
@@ -92,7 +109,7 @@ const Navbar = () => {
               {/* Reach Out Section */}
               <div className="p-6 border-t border-gray-300">
                 <p className="text-sm text-gray-600 mb-4">Reach out to me</p>
-                <div className="flex gap-3">
+                <div className="flex gap-3 mb-4">
                   <SocialIcon href="https://www.linkedin.com/in/vaibhavnegi04">
                     <LinkedInIcon />
                   </SocialIcon>
@@ -100,6 +117,12 @@ const Navbar = () => {
                     <EmailIcon />
                   </SocialIcon>
                 </div>
+                <Button
+                  title="Download Resume"
+                  className="w-full md:w-auto"
+                  href="https://drive.google.com/uc?export=download&id=19XSrm3UMq990NthfiIMzFF75Kx3q7GHw"
+                  download="VaibhavNegi_Resume.pdf"
+                />
               </div>
             </motion.div>
           </>
