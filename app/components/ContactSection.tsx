@@ -47,7 +47,7 @@ const ContactSection = () => {
               <Button
                 title="Download Resume"
                 className="w-full md:w-auto"
-                href="https://drive.google.com/uc?export=download&id=19XSrm3UMq990NthfiIMzFF75Kx3q7GHw"
+                href="https://drive.google.com/uc?export=download&id=192yoLvC9FR454Q-mFbiLeUGngkptVOME"
                 download="VaibhavNegi_Resume.pdf"
               />
             </div>

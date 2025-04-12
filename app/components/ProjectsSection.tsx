@@ -12,9 +12,9 @@ import "swiper/css/pagination";
 // Import all project images
 import GamingSetup from "@/assets/images/GamingSetup.jpg";
 import LivingRoom from "@/assets/images/LivingRoom.png";
-import FightingRing from "@/assets/images/FightingRing.png";
+import Jeep from "@/assets/images/jeep.jpg";
 import ChessBoard from "@/assets/images/ChessBoard.png";
-import Octopus from "@/assets/images/Octopus.jpg";
+import ConceptArt from "@/assets/images/colorkey1.png";
 import VespaScooter from "@/assets/images/VespaScooter.png";
 
 const projects = [
@@ -31,10 +31,10 @@ const projects = [
     alt: "Living Room",
   },
   {
-    title: "FIGHTING RING",
-    description: "Fighting Ring designed and developed using Blender.",
-    image: FightingRing,
-    alt: "Fighting Ring",
+    title: "JEEP",
+    description: "Jeep designed and developed using Blender.",
+    image: Jeep,
+    alt: "Jeep",
   },
   {
     title: "CHESS BOARD",
@@ -43,10 +43,10 @@ const projects = [
     alt: "Chess Board",
   },
   {
-    title: "OCTOPUS TOY",
-    description: "Octopus Toy designed and developed using Maya.",
-    image: Octopus,
-    alt: "Octopus Toy",
+    title: "CONCEPT ART",
+    description: "Concept Art",
+    image: ConceptArt,
+    alt: "Concept Art",
   },
   {
     title: "VESPA SCOOTER",

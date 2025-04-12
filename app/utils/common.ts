@@ -26,3 +26,8 @@ export const getYoutubeEmbedUrl = (url: string) => {
 
   return url;
 };
+
+export const getVimeoEmbedUrl = (url: string) => {
+  const videoId = url.split('/').pop();
+  return `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0`;
+}; 

@@ -1,6 +1,6 @@
 "use client";
 
-import { getYoutubeEmbedUrl } from "@/utils/common";
+import { getVimeoEmbedUrl } from "@/utils/common";
 import React, { useState } from "react";
 
 const ShowcaseSection = () => {
@@ -21,12 +21,10 @@ const ShowcaseSection = () => {
             </div>
           ) : null}
           <iframe
-            src={getYoutubeEmbedUrl(
-              "https://www.youtube.com/watch?v=LEzm6EzQHmQ"
-            )}
+            src={getVimeoEmbedUrl("https://vimeo.com/1074850549")}
             width="100%"
             height="100%"
-            allow="autoplay"
+            allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
             onLoad={() => setIsLoading(false)}
             className="border-0"
