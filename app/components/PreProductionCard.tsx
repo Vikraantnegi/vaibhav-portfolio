@@ -38,7 +38,7 @@ const PreProductionCard = ({
 			</div>
 
 			<div className="p-5 md:p-6 flex flex-col relative border-t border-gray-200">
-				<h3 className="text-2xl md:text-3xl font-bold text-black mb-3">
+				<h3 className="text-2xl md:text-3xl font-bold text-black mb-2">
 					{title}
 				</h3>
 				<p className="text-base md:text-lg text-black font-medium leading-relaxed mb-4">

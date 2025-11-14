@@ -14,13 +14,13 @@ import ParkourPreProduction from '@/assets/images/Parkour.png';
 
 const preProductionProjects = [
 	{
-		title: 'JEEP',
+		title: 'Jeep',
 		description: 'ZBrush, Maya, Substance Painter',
 		image: JeepPreProduction,
 		alt: 'Jeep Pre Production',
 	},
 	{
-		title: 'PARKOUR',
+		title: 'Parkour',
 		description: 'ZBrush, Maya, Substance Painter',
 		image: ParkourPreProduction,
 		alt: 'Parkour Pre Production',
