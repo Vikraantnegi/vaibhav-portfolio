@@ -86,83 +86,61 @@ In addition to visual references, I analyze various Jeep versions—both classic
 			{
 				content: {
 					title: 'REFERENCES',
-					description: `For the Parkour character, I gathered references focusing on parkour movements, character anatomy, and dynamic poses. This included studying real parkour athletes and their fluid movement patterns.
-
-The reference phase helped establish the character's athletic build and movement capabilities, informing both the design and eventual animation.
-
-Key reference areas:
-• Parkour movement sequences
-• Athletic character proportions
-• Dynamic pose studies
-• Urban environment inspiration`,
+					description: `For my parkour 3D animation, I studied real parkour videos to understand natural movement, timing, and balance. I used references of urban spaces like rooftops and alleys to design a realistic setting. Inspired by games like Assassin’s Creed and Mirror’s Edge, I aimed to make the animation dynamic and visually engaging.`,
 				},
 				media: [
 					{
-						type: 'image',
-						src: ParkourPreProduction,
-						alt: 'Parkour References',
+						type: 'video',
+						src: getVimeoEmbedUrl('https://vimeo.com/1136755189'),
+						alt: 'Parkour References 1',
+					},
+					{
+						type: 'video',
+						src: getVimeoEmbedUrl('https://vimeo.com/1136755233'),
+						alt: 'Parkour References 2',
 					},
 				],
 			},
 			{
 				content: {
-					title: 'MODEL',
-					description: `Character modeling began with blocking out the basic form in Maya, ensuring proper proportions for an athletic build. I then moved to ZBrush for detailed sculpting, adding muscle definition and character features.
-
-The modeling process emphasized clean topology for animation, while Substance Painter was used to create detailed textures that bring the character to life.
-
-Modeling workflow:
-• Base mesh creation in Maya
-• Character sculpting in ZBrush
-• Retopology for animation
-• Texture development in Substance Painter`,
+					title: 'ANIMATIC',
+					description: `The animatic established timing, camera movement, and action flow using storyboard panels and rough 3D blockouts. It visualized the character’s interaction with urban obstacles—jumping, rolling, and climbing—before full animation began.`,
 				},
 				media: [
 					{
-						type: 'image',
-						src: ParkourPreProduction,
-						alt: 'Parkour Model',
+						type: 'video',
+						src: getVimeoEmbedUrl('https://vimeo.com/1136755313'),
+						alt: 'Parkour Animatic',
 					},
 				],
 			},
 			{
 				content: {
-					title: 'RIGGING',
-					description: `Rigging the Parkour character required a comprehensive bone structure capable of handling complex movements. I set up FK/IK systems for the limbs, facial controls for expression, and secondary controls for natural movement.
-
-The rig needed to support dynamic parkour movements while maintaining flexibility for various poses and animations.
-
-Rigging features:
-• Full body IK/FK systems
-• Advanced spine controls
-• Facial rigging setup
-• Secondary animation controls`,
+					title: 'Blocking',
+					description: `In the blocking part I have done the key poses and pose selection such as the character’s crouch before a jump was exaggerated to emphasize weight shift, and the wall grab pose ensures hand placement is believable.” Timing & spacing, Character pathing and Camera Placement.`,
 				},
 				media: [
 					{
-						type: 'image',
-						src: ParkourPreProduction,
-						alt: 'Parkour Rigging',
+						type: 'video',
+						src: getVimeoEmbedUrl('https://vimeo.com/1136755320'),
+						alt: 'Parkour Blocking',
 					},
 				],
 			},
 			{
 				content: {
 					title: 'LIGHTS, CAMERA, ANIMATE!',
-					description: `The animation phase brought the Parkour character to life with fluid, dynamic movements. I created sequences showcasing various parkour techniques, emphasizing the character's agility and athleticism.
+					description: `In the final animation stage, I refined all major poses and transitions established in the blocking phase. Timing adjustments ensured jumps, vaults, and rolls maintained believable weight and momentum.
 
-Lighting and camera work were choreographed to highlight the movement and create an engaging visual experience.
+					The camera was adjusted to showcase dynamic stunts while maintaining readability of the action.
 
-Animation focus:
-• Parkour movement sequences
-• Character personality through motion
-• Dynamic camera tracking
-• Polished final render`,
+					The render part is still not done which I need to complete it for my demo reel, I will be continuing to work on this for the final render.
+`,
 				},
 				media: [
 					{
 						type: 'video',
-						src: getVimeoEmbedUrl('https://vimeo.com/1074850549'),
+						src: getVimeoEmbedUrl('https://vimeo.com/1136755243'),
 						alt: 'Parkour Animation',
 					},
 				],
