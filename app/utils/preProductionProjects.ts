@@ -6,6 +6,7 @@ import JeepReference2 from '@/assets/images/JeepReference2.jpg';
 import JeepReference3 from '@/assets/images/JeepReference3.jpeg';
 import JeepModel1 from '@/assets/images/Jeep_model2.jpg';
 import JeepModel2 from '@/assets/images/Jeep_model.jpg';
+import JeepModel3 from '@/assets/images/JeepModel3.jpg';
 import { getVimeoEmbedUrl } from '@/utils/common';
 
 export const preProductionProjects: Record<
@@ -49,7 +50,7 @@ In addition to visual references, I analyze various Jeep versions—both classic
 			{
 				content: {
 					title: 'MODEL',
-					description: `After completing the modeling, texturing, and rigging stages, the 3D Jeep model was finalized and prepared for animation. At this point, the vehicle had all its details, materials, and lighting correctly set up to achieve a realistic and visually appealing result. The finished Jeep model accurately reflects the proportions, design, and surface details established during the reference and concept phases.`,
+					description: `After completing the modeling and rigging stages, the 3D Jeep model was finalized and prepared for animation. At this point, the vehicle had all its details and materials correctly set up to achieve a realistic and visually appealing result. The finished Jeep model accurately reflects the proportions, design, and surface details established during the reference.`,
 				},
 				media: [
 					{
@@ -62,12 +63,17 @@ In addition to visual references, I analyze various Jeep versions—both classic
 						src: JeepModel2,
 						alt: 'Jeep Model 2',
 					},
+					{
+						type: 'image',
+						src: JeepModel3,
+						alt: 'Jeep Model 3',
+					},
 				],
 			},
 			{
 				content: {
 					title: 'LIGHTS, CAMERA, ANIMATE!',
-					description: `To bring the model to life, a simple rig was created for animating key components such as the wheels, suspension, steering, and doors. This allowed smooth motion and realistic movement in driving or turning sequences. The Jeep was then animated following a short camera path to demonstrate its mechanics and design in motion. Basic physics and timing were applied to make the animation feel natural and believable.`,
+					description: `To bring the model to life, a simple rig was created for animating key components such as the wheels, suspension and steering. This allowed smooth motion and realistic movement in driving or turning sequences. The Jeep was then animated following a short camera path to demonstrate its mechanics and design in motion. Basic physics and timing were applied to make the animation feel natural and believable.`,
 				},
 				media: [
 					{
