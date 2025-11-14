@@ -27,6 +27,7 @@ export default function PreProductionDetailPage({
 		<PreProductionDetail
 			projectTitle={project.title}
 			heroImage={project.heroImage}
+			description={project.description}
 			sections={project.sections}
 		/>
 	);
