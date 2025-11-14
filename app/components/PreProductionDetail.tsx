@@ -6,7 +6,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
-import type { SwiperRef } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -53,7 +52,7 @@ const PreProductionDetail = ({
 		const checkMobile = () => {
 			setIsMobile(window.innerWidth < 768);
 		};
-		
+
 		checkMobile();
 		window.addEventListener('resize', checkMobile);
 		return () => window.removeEventListener('resize', checkMobile);
@@ -232,7 +231,10 @@ const PreProductionDetail = ({
 	};
 
 	return (
-		<div ref={containerRef} className="min-h-screen bg-background w-full max-w-full overflow-x-hidden">
+		<div
+			ref={containerRef}
+			className="min-h-screen bg-background w-full max-w-full overflow-x-hidden"
+		>
 			<div className="py-12 md:py-16 w-full max-w-full">
 				<div className="flex flex-col max-w-[64rem] w-full mx-auto px-4 md:px-0">
 					{heroImage && (
@@ -273,13 +275,16 @@ const PreProductionDetail = ({
 									{section.content.description}
 								</div>
 							</div>
-							
+
 							{/* Media Slider for Mobile */}
 							{section.media.length > 0 && (
 								<div className="w-full max-w-full">
 									{section.media.length === 1 ? (
 										<div className="relative w-full max-w-full aspect-video rounded-lg overflow-hidden">
-											{renderMedia(section.media[0], index)}
+											{renderMedia(
+												section.media[0],
+												index
+											)}
 										</div>
 									) : (
 										<Swiper
@@ -294,15 +299,26 @@ const PreProductionDetail = ({
 													'swiper-pagination-bullet-active !bg-black',
 											}}
 											className="w-full max-w-full pb-10"
-											autoplay={{ delay: 3000, disableOnInteraction: false }}
+											autoplay={{
+												delay: 3000,
+												disableOnInteraction: false,
+											}}
 										>
-											{section.media.map((item, mediaIndex) => (
-												<SwiperSlide key={mediaIndex} className="!w-full">
-													<div className="relative w-full max-w-full aspect-video rounded-lg overflow-hidden">
-														{renderMedia(item, index)}
-													</div>
-												</SwiperSlide>
-											))}
+											{section.media.map(
+												(item, mediaIndex) => (
+													<SwiperSlide
+														key={mediaIndex}
+														className="!w-full"
+													>
+														<div className="relative w-full max-w-full aspect-video rounded-lg overflow-hidden">
+															{renderMedia(
+																item,
+																index
+															)}
+														</div>
+													</SwiperSlide>
+												)
+											)}
 										</Swiper>
 									)}
 								</div>
@@ -345,7 +361,8 @@ const PreProductionDetail = ({
 						>
 							<div className="relative w-full h-full overflow-y-auto">
 								{sections.map((section, sectionIndex) => {
-									const isInitiallyVisible = sectionIndex === 0;
+									const isInitiallyVisible =
+										sectionIndex === 0;
 									return (
 										<div
 											key={sectionIndex}

@@ -1,12 +1,13 @@
 import PreProductionDetail from '@/components/PreProductionDetail';
 import { preProductionProjects } from '@/utils/preProductionProjects';
 
-export default function PreProductionDetailPage({
+export default async function PreProductionDetailPage({
 	params,
 }: {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }) {
-	const project = preProductionProjects[params.slug.toLowerCase()];
+	const { slug } = await params;
+	const project = preProductionProjects[slug.toLowerCase()];
 
 	if (!project) {
 		return (
