@@ -5,7 +5,7 @@ import Image, { StaticImageData } from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -19,6 +19,7 @@ export interface MediaItem {
 	src: StaticImageData | string;
 	alt?: string;
 	thumbnail?: StaticImageData | string;
+	loop?: boolean;
 }
 
 export interface Section {
@@ -36,6 +37,119 @@ interface PreProductionDetailProps {
 	sections: Section[];
 }
 
+// Video component with Intersection Observer for viewport-based playing
+const VideoPlayer = ({
+	src,
+	shouldPlay,
+	alt,
+	loop = false,
+	isSectionActive = true,
+}: {
+	src: string;
+	shouldPlay: boolean;
+	alt?: string;
+	loop?: boolean;
+	isSectionActive?: boolean;
+}) => {
+	const videoRef = useRef<HTMLDivElement>(null);
+	const iframeRef = useRef<HTMLIFrameElement>(null);
+	const [isInViewport, setIsInViewport] = useState(false);
+	const [hasStarted, setHasStarted] = useState(false);
+
+	useEffect(() => {
+		// Only observe if section is active and should play
+		if (!videoRef.current || !shouldPlay || !isSectionActive) {
+			// Reset if section becomes inactive
+			if (!isSectionActive) {
+				setIsInViewport(false);
+				setHasStarted(false);
+			}
+			return;
+		}
+
+		const currentElement = videoRef.current;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (
+						entry.isIntersecting &&
+						!hasStarted &&
+						isSectionActive
+					) {
+						setIsInViewport(true);
+						setHasStarted(true);
+					}
+				});
+			},
+			{
+				threshold: 0.5, // Start when 50% visible
+			}
+		);
+
+		observer.observe(currentElement);
+
+		return () => {
+			observer.unobserve(currentElement);
+		};
+	}, [shouldPlay, hasStarted, isSectionActive]);
+
+	// Build Vimeo URL with play when in viewport
+	const getVideoUrl = () => {
+		// Extract video ID from various Vimeo URL formats
+		let videoId: string | undefined;
+
+		// Handle different URL formats
+		if (src.includes('player.vimeo.com')) {
+			// Already an embed URL
+			const match = src.match(/\/video\/(\d+)/);
+			videoId = match ? match[1] : src.split('/').pop()?.split('?')[0];
+		} else if (src.includes('vimeo.com')) {
+			// Regular Vimeo URL
+			videoId = src.split('/').pop()?.split('?')[0];
+		} else {
+			// Assume it's already a video ID or extract from any format
+			videoId = src.split('/').pop()?.split('?')[0];
+		}
+
+		if (!videoId) {
+			return src; // Fallback to original src
+		}
+
+		const params = new URLSearchParams();
+		params.set('title', '0');
+		params.set('controls', '1'); // Always show controls
+
+		if (loop) {
+			params.set('loop', '1');
+		}
+
+		if (isInViewport && shouldPlay) {
+			// Play when in viewport (triggered by viewport entry)
+			params.set('autoplay', '1');
+			params.set('muted', '1');
+		}
+
+		return `https://player.vimeo.com/video/${videoId}?${params.toString()}`;
+	};
+
+	return (
+		<div ref={videoRef} className="relative w-full h-full">
+			<iframe
+				ref={iframeRef}
+				src={getVideoUrl()}
+				width="100%"
+				height="100%"
+				allow="autoplay; fullscreen; picture-in-picture"
+				allowFullScreen
+				className="border-0 rounded-lg"
+				title={alt || 'Video'}
+				key={getVideoUrl()} // Force re-render when URL changes
+			/>
+		</div>
+	);
+};
+
 const PreProductionDetail = ({
 	projectTitle,
 	heroImage,
@@ -46,6 +160,7 @@ const PreProductionDetail = ({
 	const stickyRef = useRef<HTMLDivElement>(null);
 	const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 	const [isMobile, setIsMobile] = useState(false);
+	const [activeSectionIndex, setActiveSectionIndex] = useState(0);
 
 	// Check if mobile on mount and resize
 	useEffect(() => {
@@ -126,9 +241,9 @@ const PreProductionDetail = ({
 										sectionEl.classList.remove(
 											'active-media'
 										);
-										(
-											sectionEl as HTMLElement
-										).style.pointerEvents = 'none';
+										const el = sectionEl as HTMLElement;
+										el.style.pointerEvents = 'none';
+										el.style.zIndex = '0';
 									},
 								});
 							});
@@ -138,6 +253,9 @@ const PreProductionDetail = ({
 									`[data-section="${index}"]`
 								);
 							if (currentSection) {
+								// Update active section index
+								setActiveSectionIndex(index);
+
 								gsap.to(currentSection, {
 									opacity: 1,
 									duration: 0.3,
@@ -145,9 +263,10 @@ const PreProductionDetail = ({
 										currentSection.classList.add(
 											'active-media'
 										);
-										(
-											currentSection as HTMLElement
-										).style.pointerEvents = 'auto';
+										const el =
+											currentSection as HTMLElement;
+										el.style.pointerEvents = 'auto';
+										el.style.zIndex = '10';
 									},
 								});
 							}
@@ -166,9 +285,9 @@ const PreProductionDetail = ({
 											sectionEl.classList.remove(
 												'active-media'
 											);
-											(
-												sectionEl as HTMLElement
-											).style.pointerEvents = 'none';
+											const el = sectionEl as HTMLElement;
+											el.style.pointerEvents = 'none';
+											el.style.zIndex = '0';
 										},
 									});
 								});
@@ -178,6 +297,9 @@ const PreProductionDetail = ({
 										`[data-section="${index - 1}"]`
 									);
 								if (prevSection) {
+									// Update active section index to previous
+									setActiveSectionIndex(index - 1);
+
 									gsap.to(prevSection, {
 										opacity: 1,
 										duration: 0.3,
@@ -185,9 +307,10 @@ const PreProductionDetail = ({
 											prevSection.classList.add(
 												'active-media'
 											);
-											(
-												prevSection as HTMLElement
-											).style.pointerEvents = 'auto';
+											const el =
+												prevSection as HTMLElement;
+											el.style.pointerEvents = 'auto';
+											el.style.zIndex = '10';
 										},
 									});
 								}
@@ -201,7 +324,12 @@ const PreProductionDetail = ({
 		return () => ctx.revert();
 	}, [sections, isMobile]);
 
-	const renderMedia = (item: MediaItem, sectionIndex: number) => {
+	const renderMedia = (
+		item: MediaItem,
+		sectionIndex: number,
+		mediaIndex: number = 0,
+		isSectionActive: boolean = true
+	) => {
 		if (item.type === 'image') {
 			return (
 				<Image
@@ -216,14 +344,19 @@ const PreProductionDetail = ({
 				/>
 			);
 		} else if (item.type === 'video') {
+			// Only play the first video in each section when in viewport AND section is active
+			const shouldPlay = mediaIndex === 0 && isSectionActive;
+
 			return (
-				<iframe
+				<VideoPlayer
 					src={item.src as string}
-					width="100%"
-					height="100%"
-					allow="autoplay; fullscreen; picture-in-picture"
-					allowFullScreen
-					className="border-0 rounded-lg"
+					shouldPlay={shouldPlay}
+					alt={
+						item.alt ||
+						`${projectTitle} - Section ${sectionIndex + 1}`
+					}
+					loop={item.loop || false}
+					isSectionActive={isSectionActive}
 				/>
 			);
 		}
@@ -283,12 +416,13 @@ const PreProductionDetail = ({
 										<div className="relative w-full max-w-full aspect-video rounded-lg overflow-hidden">
 											{renderMedia(
 												section.media[0],
-												index
+												index,
+												0
 											)}
 										</div>
 									) : (
 										<Swiper
-											modules={[Pagination, Autoplay]}
+											modules={[Pagination]}
 											spaceBetween={20}
 											slidesPerView={1}
 											pagination={{
@@ -299,10 +433,6 @@ const PreProductionDetail = ({
 													'swiper-pagination-bullet-active !bg-black',
 											}}
 											className="w-full max-w-full pb-10"
-											autoplay={{
-												delay: 3000,
-												disableOnInteraction: false,
-											}}
 										>
 											{section.media.map(
 												(item, mediaIndex) => (
@@ -313,7 +443,8 @@ const PreProductionDetail = ({
 														<div className="relative w-full max-w-full aspect-video rounded-lg overflow-hidden">
 															{renderMedia(
 																item,
-																index
+																index,
+																mediaIndex
 															)}
 														</div>
 													</SwiperSlide>
@@ -361,17 +492,22 @@ const PreProductionDetail = ({
 						>
 							<div className="relative w-full h-full overflow-y-auto">
 								{sections.map((section, sectionIndex) => {
-									const isInitiallyVisible =
-										sectionIndex === 0;
+									const isActive =
+										sectionIndex === activeSectionIndex;
 									return (
 										<div
 											key={sectionIndex}
 											data-section={sectionIndex}
 											className={`absolute inset-0 w-full transition-opacity duration-300 ${
-												isInitiallyVisible
-													? 'opacity-100 active-media'
-													: 'opacity-0 pointer-events-none'
+												isActive
+													? 'opacity-100 active-media z-10'
+													: 'opacity-0 z-0'
 											}`}
+											style={{
+												pointerEvents: isActive
+													? 'auto'
+													: 'none',
+											}}
 										>
 											<div className="flex flex-col items-center justify-start py-8 gap-4 h-full overflow-y-auto">
 												{section.media.map(
@@ -379,10 +515,18 @@ const PreProductionDetail = ({
 														<div
 															key={mediaIndex}
 															className="relative w-full aspect-video"
+															style={{
+																pointerEvents:
+																	isActive
+																		? 'auto'
+																		: 'none',
+															}}
 														>
 															{renderMedia(
 																item,
-																sectionIndex
+																sectionIndex,
+																mediaIndex,
+																isActive
 															)}
 														</div>
 													)
