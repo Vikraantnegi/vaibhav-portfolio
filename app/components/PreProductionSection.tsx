@@ -5,6 +5,7 @@ import PreProductionCard from './PreProductionCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import type { SwiperRef } from 'swiper/react';
+import { useRouter } from 'next/navigation';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -14,14 +15,16 @@ import ParkourPreProduction from '@/assets/images/Parkour.png';
 
 const preProductionProjects = [
 	{
-		title: 'Jeep',
-		description: 'ZBrush, Maya, Substance Painter',
+		title: 'JEEP',
+		slug: 'jeep',
+		description: 'Maya',
 		image: JeepPreProduction,
 		alt: 'Jeep Pre Production',
 	},
 	{
-		title: 'Parkour',
-		description: 'ZBrush, Maya, Substance Painter',
+		title: 'PARKOUR',
+		slug: 'parkour',
+		description: 'Maya',
 		image: ParkourPreProduction,
 		alt: 'Parkour Pre Production',
 	},
@@ -29,6 +32,11 @@ const preProductionProjects = [
 
 const PreProductionSection = () => {
 	const swiperRef = useRef<SwiperRef>(null);
+	const router = useRouter();
+
+	const handleCardClick = (slug: string) => {
+		router.push(`/pre-production/${slug}`);
+	};
 
 	useEffect(() => {
 		if (swiperRef.current) {
@@ -70,6 +78,9 @@ const PreProductionSection = () => {
 									description={project.description}
 									image={project.image}
 									alt={project.alt}
+									onClick={() =>
+										handleCardClick(project.slug)
+									}
 								/>
 							</SwiperSlide>
 						))}
@@ -84,6 +95,7 @@ const PreProductionSection = () => {
 							description={project.description}
 							image={project.image}
 							alt={project.alt}
+							onClick={() => handleCardClick(project.slug)}
 						/>
 					))}
 				</div>
