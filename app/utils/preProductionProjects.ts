@@ -6,7 +6,7 @@ import JeepReference2 from '@/assets/images/JeepReference2.jpg';
 import JeepReference3 from '@/assets/images/JeepReference3.jpeg';
 import JeepModel1 from '@/assets/images/Jeep_model2.jpg';
 import JeepModel2 from '@/assets/images/Jeep_model.jpg';
-import JeepModel3 from '@/assets/images/JeepModel3.jpg';
+import JeepModel3 from '@/assets/images/JeepModel3.png';
 import { getVimeoEmbedUrl } from '@/utils/common';
 
 export const preProductionProjects: Record<
