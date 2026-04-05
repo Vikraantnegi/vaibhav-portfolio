@@ -2,17 +2,11 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-
-if (typeof window !== 'undefined') {
-	gsap.registerPlugin(ScrollTrigger);
-}
 
 export interface MediaItem {
 	type: 'image' | 'video';
@@ -43,13 +37,11 @@ const VideoPlayer = ({
 	shouldPlay,
 	alt,
 	loop = false,
-	isSectionActive = true,
 }: {
 	src: string;
 	shouldPlay: boolean;
 	alt?: string;
 	loop?: boolean;
-	isSectionActive?: boolean;
 }) => {
 	const videoRef = useRef<HTMLDivElement>(null);
 	const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -57,10 +49,8 @@ const VideoPlayer = ({
 	const [hasStarted, setHasStarted] = useState(false);
 
 	useEffect(() => {
-		// Only observe if section is active and should play
-		if (!videoRef.current || !shouldPlay || !isSectionActive) {
-			// Reset if section becomes inactive
-			if (!isSectionActive) {
+		if (!videoRef.current || !shouldPlay) {
+			if (!shouldPlay) {
 				setIsInViewport(false);
 				setHasStarted(false);
 			}
@@ -72,18 +62,14 @@ const VideoPlayer = ({
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
-					if (
-						entry.isIntersecting &&
-						!hasStarted &&
-						isSectionActive
-					) {
+					if (entry.isIntersecting && !hasStarted) {
 						setIsInViewport(true);
 						setHasStarted(true);
 					}
 				});
 			},
 			{
-				threshold: 0.5, // Start when 50% visible
+				threshold: 0.5,
 			}
 		);
 
@@ -92,40 +78,33 @@ const VideoPlayer = ({
 		return () => {
 			observer.unobserve(currentElement);
 		};
-	}, [shouldPlay, hasStarted, isSectionActive]);
+	}, [shouldPlay, hasStarted]);
 
-	// Build Vimeo URL with play when in viewport
 	const getVideoUrl = () => {
-		// Extract video ID from various Vimeo URL formats
 		let videoId: string | undefined;
 
-		// Handle different URL formats
 		if (src.includes('player.vimeo.com')) {
-			// Already an embed URL
 			const match = src.match(/\/video\/(\d+)/);
 			videoId = match ? match[1] : src.split('/').pop()?.split('?')[0];
 		} else if (src.includes('vimeo.com')) {
-			// Regular Vimeo URL
 			videoId = src.split('/').pop()?.split('?')[0];
 		} else {
-			// Assume it's already a video ID or extract from any format
 			videoId = src.split('/').pop()?.split('?')[0];
 		}
 
 		if (!videoId) {
-			return src; // Fallback to original src
+			return src;
 		}
 
 		const params = new URLSearchParams();
 		params.set('title', '0');
-		params.set('controls', '1'); // Always show controls
+		params.set('controls', '1');
 
 		if (loop) {
 			params.set('loop', '1');
 		}
 
 		if (isInViewport && shouldPlay) {
-			// Play when in viewport (triggered by viewport entry)
 			params.set('autoplay', '1');
 			params.set('muted', '1');
 		}
@@ -144,7 +123,7 @@ const VideoPlayer = ({
 				allowFullScreen
 				className="border-0 rounded-lg"
 				title={alt || 'Video'}
-				key={getVideoUrl()} // Force re-render when URL changes
+				key={getVideoUrl()}
 			/>
 		</div>
 	);
@@ -156,179 +135,10 @@ const PreProductionDetail = ({
 	description,
 	sections,
 }: PreProductionDetailProps) => {
-	const containerRef = useRef<HTMLDivElement>(null);
-	const stickyRef = useRef<HTMLDivElement>(null);
-	const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-	const [isMobile, setIsMobile] = useState(false);
-	const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-
-	// Check if mobile on mount and resize
-	useEffect(() => {
-		const checkMobile = () => {
-			setIsMobile(window.innerWidth < 768);
-		};
-
-		checkMobile();
-		window.addEventListener('resize', checkMobile);
-		return () => window.removeEventListener('resize', checkMobile);
-	}, []);
-
-	// GSAP only for desktop
-	useEffect(() => {
-		if (typeof window === 'undefined' || isMobile) return;
-
-		const ctx = gsap.context(() => {
-			const leftColumn =
-				containerRef.current?.querySelector('.sections-column');
-			const stickyContainer = stickyRef.current;
-			const lastSection = sectionRefs.current[sections.length - 1];
-
-			if (!leftColumn || !stickyContainer) return;
-
-			if (lastSection) {
-				ScrollTrigger.create({
-					trigger: leftColumn,
-					start: 'top top',
-					endTrigger: lastSection,
-					end: 'top top',
-					pin: stickyContainer,
-					pinSpacing: true,
-					anticipatePin: 1,
-				});
-			} else {
-				ScrollTrigger.create({
-					trigger: leftColumn,
-					start: 'top top',
-					end: () =>
-						`+=${leftColumn.scrollHeight - window.innerHeight}`,
-					pin: stickyContainer,
-					pinSpacing: true,
-				});
-			}
-
-			sectionRefs.current.forEach((section) => {
-				if (section) {
-					gsap.from(section, {
-						scrollTrigger: {
-							trigger: section,
-							start: 'top 80%',
-							toggleActions: 'play none none reverse',
-						},
-						opacity: 0,
-						y: 50,
-						duration: 0.8,
-						ease: 'power3.out',
-					});
-				}
-			});
-
-			sections.forEach((section, index) => {
-				if (sectionRefs.current[index] && stickyContainer) {
-					ScrollTrigger.create({
-						trigger: sectionRefs.current[index]!,
-						start: 'top bottom',
-						end: 'bottom top',
-						onEnter: () => {
-							const allSections =
-								stickyContainer.querySelectorAll(
-									'[data-section]'
-								);
-							allSections.forEach((sectionEl) => {
-								gsap.to(sectionEl, {
-									opacity: 0,
-									duration: 0.3,
-									onComplete: () => {
-										sectionEl.classList.remove(
-											'active-media'
-										);
-										const el = sectionEl as HTMLElement;
-										el.style.pointerEvents = 'none';
-										el.style.zIndex = '0';
-									},
-								});
-							});
-
-							const currentSection =
-								stickyContainer.querySelector(
-									`[data-section="${index}"]`
-								);
-							if (currentSection) {
-								// Update active section index
-								setActiveSectionIndex(index);
-
-								gsap.to(currentSection, {
-									opacity: 1,
-									duration: 0.3,
-									onStart: () => {
-										currentSection.classList.add(
-											'active-media'
-										);
-										const el =
-											currentSection as HTMLElement;
-										el.style.pointerEvents = 'auto';
-										el.style.zIndex = '10';
-									},
-								});
-							}
-						},
-						onLeaveBack: () => {
-							if (index > 0 && stickyContainer) {
-								const allSections =
-									stickyContainer.querySelectorAll(
-										'[data-section]'
-									);
-								allSections.forEach((sectionEl) => {
-									gsap.to(sectionEl, {
-										opacity: 0,
-										duration: 0.3,
-										onComplete: () => {
-											sectionEl.classList.remove(
-												'active-media'
-											);
-											const el = sectionEl as HTMLElement;
-											el.style.pointerEvents = 'none';
-											el.style.zIndex = '0';
-										},
-									});
-								});
-
-								const prevSection =
-									stickyContainer.querySelector(
-										`[data-section="${index - 1}"]`
-									);
-								if (prevSection) {
-									// Update active section index to previous
-									setActiveSectionIndex(index - 1);
-
-									gsap.to(prevSection, {
-										opacity: 1,
-										duration: 0.3,
-										onStart: () => {
-											prevSection.classList.add(
-												'active-media'
-											);
-											const el =
-												prevSection as HTMLElement;
-											el.style.pointerEvents = 'auto';
-											el.style.zIndex = '10';
-										},
-									});
-								}
-							}
-						},
-					});
-				}
-			});
-		}, containerRef);
-
-		return () => ctx.revert();
-	}, [sections, isMobile]);
-
 	const renderMedia = (
 		item: MediaItem,
 		sectionIndex: number,
-		mediaIndex: number = 0,
-		isSectionActive: boolean = true
+		mediaIndex: number = 0
 	) => {
 		if (item.type === 'image') {
 			return (
@@ -344,8 +154,7 @@ const PreProductionDetail = ({
 				/>
 			);
 		} else if (item.type === 'video') {
-			// Only play the first video in each section when in viewport AND section is active
-			const shouldPlay = mediaIndex === 0 && isSectionActive;
+			const shouldPlay = mediaIndex === 0;
 
 			return (
 				<VideoPlayer
@@ -356,7 +165,6 @@ const PreProductionDetail = ({
 						`${projectTitle} - Section ${sectionIndex + 1}`
 					}
 					loop={item.loop || false}
-					isSectionActive={isSectionActive}
 				/>
 			);
 		}
@@ -364,10 +172,7 @@ const PreProductionDetail = ({
 	};
 
 	return (
-		<div
-			ref={containerRef}
-			className="min-h-screen bg-background w-full max-w-full overflow-x-hidden"
-		>
+		<div className="min-h-screen bg-background w-full max-w-full overflow-x-hidden">
 			<div className="py-12 md:py-16 w-full max-w-full">
 				<div className="flex flex-col max-w-[64rem] w-full mx-auto px-4 md:px-0">
 					{heroImage && (
@@ -394,152 +199,63 @@ const PreProductionDetail = ({
 				</div>
 			</div>
 
-			{/* Mobile View - Normal Sections with Sliders */}
-			{isMobile ? (
-				<div className="flex flex-col gap-12 w-full mx-auto px-4 pb-20">
-					{sections.map((section, index) => (
-						<div key={index} className="w-full space-y-6">
-							<div className="w-full">
-								<h2 className="text-3xl font-bold text-black mb-6">
-									{section.content.title}
-								</h2>
-								<div className="bg-black h-0.5 rounded-sm mb-6" />
-								<div className="text-base text-black leading-relaxed whitespace-pre-line">
-									{section.content.description}
-								</div>
+			<div className="flex flex-col gap-12 md:gap-24 w-full max-w-[64rem] mx-auto px-4 md:px-0 pb-20">
+				{sections.map((section, index) => (
+					<div
+						key={index}
+						className="flex flex-col md:flex-row md:gap-12 md:items-start w-full gap-6"
+					>
+						<div className="w-full md:w-1/2 shrink-0">
+							<h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
+								{section.content.title}
+							</h2>
+							<div className="bg-black h-0.5 rounded-sm mb-6" />
+							<div className="text-base md:text-lg text-black leading-relaxed whitespace-pre-line">
+								{section.content.description}
 							</div>
-
-							{/* Media Slider for Mobile */}
-							{section.media.length > 0 && (
-								<div className="w-full max-w-full">
-									{section.media.length === 1 ? (
-										<div className="relative w-full max-w-full aspect-video rounded-lg overflow-hidden">
-											{renderMedia(
-												section.media[0],
-												index,
-												0
-											)}
-										</div>
-									) : (
-										<Swiper
-											modules={[Pagination]}
-											spaceBetween={20}
-											slidesPerView={1}
-											pagination={{
-												clickable: true,
-												bulletClass:
-													'swiper-pagination-bullet !w-8 !h-1 !rounded-none !bg-gray-300',
-												bulletActiveClass:
-													'swiper-pagination-bullet-active !bg-black',
-											}}
-											className="w-full max-w-full pb-10"
-										>
-											{section.media.map(
-												(item, mediaIndex) => (
-													<SwiperSlide
-														key={mediaIndex}
-														className="!w-full"
-													>
-														<div className="relative w-full max-w-full aspect-video rounded-lg overflow-hidden">
-															{renderMedia(
-																item,
-																index,
-																mediaIndex
-															)}
-														</div>
-													</SwiperSlide>
-												)
-											)}
-										</Swiper>
-									)}
-								</div>
-							)}
 						</div>
-					))}
-				</div>
-			) : (
-				/* Desktop View - GSAP Sticky Layout */
-				<div className="flex flex-col md:flex-row gap-8 md:gap-12 max-w-[64rem] w-full mx-auto px-8 md:px-0">
-					<div className="sections-column w-full md:w-1/2 space-y-32 md:space-y-40 pb-20">
-						{sections.map((section, index) => (
-							<div
-								key={index}
-								ref={(el: HTMLDivElement | null) => {
-									if (el) {
-										sectionRefs.current[index] = el;
-									}
-								}}
-								className="min-h-screen flex items-start"
-								data-section-index={index}
-							>
-								<div className="w-full">
-									<h2 className="text-3xl md:text-4xl font-bold text-black mb-6">
-										{section.content.title}
-									</h2>
-									<div className="bg-black h-0.5 rounded-sm mb-6" />
-									<div className="text-base md:text-lg text-black leading-relaxed whitespace-pre-line">
-										{section.content.description}
+
+						{section.media.length > 0 && (
+							<div className="w-full md:w-1/2 max-w-full">
+								{section.media.length === 1 ? (
+									<div className="relative w-full max-w-full aspect-video rounded-lg overflow-hidden">
+										{renderMedia(section.media[0], index, 0)}
 									</div>
-								</div>
+								) : (
+									<Swiper
+										modules={[Pagination]}
+										spaceBetween={20}
+										slidesPerView={1}
+										pagination={{
+											clickable: true,
+											bulletClass:
+												'swiper-pagination-bullet !w-8 !h-1 !rounded-none !bg-gray-300',
+											bulletActiveClass:
+												'swiper-pagination-bullet-active !bg-black',
+										}}
+										className="w-full max-w-full pb-10"
+									>
+										{section.media.map((item, mediaIndex) => (
+											<SwiperSlide
+												key={mediaIndex}
+												className="!w-full"
+											>
+												<div className="relative w-full max-w-full aspect-video rounded-lg overflow-hidden">
+													{renderMedia(
+														item,
+														index,
+														mediaIndex
+													)}
+												</div>
+											</SwiperSlide>
+										))}
+									</Swiper>
+								)}
 							</div>
-						))}
+						)}
 					</div>
-
-					<div className="w-full md:w-1/2">
-						<div
-							ref={stickyRef}
-							className="sticky top-8 h-[calc(100vh-4rem)]"
-						>
-							<div className="relative w-full h-full overflow-y-auto">
-								{sections.map((section, sectionIndex) => {
-									const isActive =
-										sectionIndex === activeSectionIndex;
-									return (
-										<div
-											key={sectionIndex}
-											data-section={sectionIndex}
-											className={`absolute inset-0 w-full transition-opacity duration-300 ${
-												isActive
-													? 'opacity-100 active-media z-10'
-													: 'opacity-0 z-0'
-											}`}
-											style={{
-												pointerEvents: isActive
-													? 'auto'
-													: 'none',
-											}}
-										>
-											<div className="flex flex-col items-center justify-start py-8 gap-4 h-full overflow-y-auto">
-												{section.media.map(
-													(item, mediaIndex) => (
-														<div
-															key={mediaIndex}
-															className="relative w-full aspect-video"
-															style={{
-																pointerEvents:
-																	isActive
-																		? 'auto'
-																		: 'none',
-															}}
-														>
-															{renderMedia(
-																item,
-																sectionIndex,
-																mediaIndex,
-																isActive
-															)}
-														</div>
-													)
-												)}
-											</div>
-										</div>
-									);
-								})}
-							</div>
-						</div>
-					</div>
-				</div>
-			)}
+				))}
+			</div>
 		</div>
 	);
 };
