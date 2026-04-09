@@ -21,7 +21,7 @@ const ShowcaseSection = () => {
             </div>
           ) : null}
           <iframe
-            src={getVimeoEmbedUrl("https://vimeo.com/1180074706?share=copy&fl=sv&fe=ci")}
+            src={getVimeoEmbedUrl("https://vimeo.com/1181448446?share=copy&fl=sv&fe=ci")}
             width="100%"
             height="100%"
             allow="autoplay; fullscreen; picture-in-picture"
